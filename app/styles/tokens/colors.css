@@ -1,0 +1,26 @@
+:root {
+    --color-sage-900: #455041;
+    --color-sage-800: #556352;
+    --color-sage-700: #667764;
+
+    --color-warm-100: #f5f0eb;
+    --color-warm-200: #ede8e2;
+    --color-warm-300: #d9d3cc;
+
+    --color-ink-900: #1a1a18;
+    --color-ink-500: #6b6b67;
+    --color-ink-300: #9e9e9a;
+
+    --color-background: var(--color-warm-100);
+    --color-background-alt: var(--color-warm-200);
+    --color-background-brand: var(--color-sage-900);
+
+    --color-text-primary: var(--color-ink-900);
+    --color-text-secondary: var(--color-ink-500);
+    --color-text-muted: var(--color-ink-300);
+    --color-text-on-brand: var(--color-warm-100);
+
+    --color-text-hover: var(--color-ink-500);
+    --color-brand: var(--color-sage-900);
+    --color-brand-hover: var(--color-sage-800);
+}

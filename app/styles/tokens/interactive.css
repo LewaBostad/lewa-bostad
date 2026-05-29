@@ -1,0 +1,46 @@
+:root {
+    --duration-fast: 150ms; /* instant feedback, toggles */
+    --duration-base: 250ms; /* standard hover states */
+    --duration-slow: 400ms; /* image zoom, larger transitions */
+
+    --ease-default: cubic-bezier(0.4, 0, 0.2, 1); /* in-out, general */
+    --ease-out: cubic-bezier(0, 0, 0.2, 1); /* entering elements */
+    --ease-in: cubic-bezier(0.4, 0, 1, 1); /* exiting elements */
+
+    --transition-color: color var(--duration-base) var(--ease-default);
+    --transition-opacity: opacity var(--duration-base) var(--ease-default);
+    --transition-transform: transform var(--duration-slow) var(--ease-out);
+
+    --image-zoom-scale: 1.04;
+}
+
+a {
+    transition: var(--transition-color);
+}
+
+a:hover {
+    color: var(--color-text-hover);
+}
+
+.image-zoom {
+    overflow: hidden;
+}
+
+.image-zoom img {
+    transition: var(--transition-transform);
+    will-change: transform;
+}
+
+.image-zoom:hover img {
+    transform: scale(var(--image-zoom-scale));
+}
+
+:focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
+}
+
+:focus:not(:focus-visible) {
+    outline: none;
+}
