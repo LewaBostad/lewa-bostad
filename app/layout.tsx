@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./styles/globals.css";
 
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
+import Header from "@/components/ui/header/desktop/Header";
 
 const cormorant = Cormorant_Garamond({
     subsets: ["latin"],
@@ -29,7 +30,10 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="sv" className={`${dmSans.variable} ${cormorant.variable}`}>
-            <body>{children}</body>
+            <body>
+                <Header />
+                {children}
+            </body>
         </html>
     );
 }

@@ -23,4 +23,7 @@
     --color-text-hover: var(--color-ink-500);
     --color-brand: var(--color-sage-900);
     --color-brand-hover: var(--color-sage-800);
+
+    --color-border: var(--color-warm-300);
+    --color-border-subtle: var(--color-warm-200);
 }

@@ -102,3 +102,13 @@
 .stack--lg {
     gap: var(--spacing-stack);
 }
+
+:root {
+    --logo-height: 42px;
+}
+
+@media (max-width: 768px) {
+    :root {
+        --logo-height: 36px;
+    }
+}
