@@ -17,7 +17,7 @@
     --spacing-lg: var(--space-7); /* larger card padding */
 
     --spacing-section: var(--space-10); /* vertical section padding */
-    --spacing-section-sm: var(--space-8); /* smaller screens */
+    --spacing-section-sm: var(--space-6); /* smaller screens */
     --spacing-stack: var(--space-7); /* gap between content blocks */
     --spacing-content-gap: var(--space-5); /* gap between text elements */
 }
