@@ -145,3 +145,7 @@
 .section--brand p {
     color: var(--color-text-on-brand);
 }
+
+.section--no-padding-bottom {
+    padding-block-end: var(--spacing-md);
+}
