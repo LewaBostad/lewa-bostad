@@ -58,12 +58,3 @@
 .integrity {
     color: var(--color-text-muted);
 }
-
-.meta {
-    font-family: var(--font-body);
-    font-size: var(--text-meta);
-    font-weight: var(--font-weight-medium);
-    line-height: var(--line-height-small);
-    letter-spacing: var(--tracking-meta);
-    color: var(--color-text-secondary);
-}

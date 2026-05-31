@@ -1,6 +1,8 @@
 import Hero from "@/components/sections/hero/Hero";
+import ProjectsCTA from "@/components/sections/projectsCTA/ProjectsCTA";
 import SplitSection from "@/components/sections/splitSection/SplitSection";
 import intro from "@/public/intro/intro.webp";
+import { projectCTAData } from "@/components/sections/projectsCTA/data";
 
 export default function Home() {
     return (
@@ -16,6 +18,13 @@ export default function Home() {
                 image={intro}
                 imageAlt="Bild på ett vardagsrum ifrång projekt glansbaggen"
                 imagePosition="right"
+            />
+            <ProjectsCTA
+                project={projectCTAData[0]}
+                project2={projectCTAData[1]}
+                background="alt"
+                title="Hitta hem hos oss."
+                text="Lewa Bostad bygger radhus och parhus i bostadsrättsform. Husen utformas med fokus på hållbar arkitektur, genomtänkt design och hög kvalitet i varje detalj."
             />
         </div>
     );

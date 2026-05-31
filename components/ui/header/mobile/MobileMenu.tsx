@@ -63,7 +63,7 @@ export default function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
                 ))}
             </nav>
             <div className={styles.integrity}>
-                <Link href="/integritetspolicy" className={styles.meta}>
+                <Link href="/integritetspolicy" className="text-meta">
                     Integritetspolicy
                 </Link>
             </div>

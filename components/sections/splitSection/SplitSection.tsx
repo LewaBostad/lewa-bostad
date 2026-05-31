@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { StaticImageData } from "next/image";
+import { Background } from "@/types/Props.types";
 import styles from "./SplitSection.module.css";
 
 interface SplitSectionProps {
@@ -9,7 +10,7 @@ interface SplitSectionProps {
     image: StaticImageData;
     imageAlt: string;
     imagePosition: "left" | "right";
-    background?: "default" | "alt" | "brand";
+    background?: Background;
 }
 
 export default function SplitSection({
@@ -25,7 +26,7 @@ export default function SplitSection({
     return (
         <section className={`section section--${background}`}>
             <div className={`split ${imagePosition === "left" ? "split--image-left" : ""}`}>
-                <div className="split__content stack">
+                <div className="split__content stack prose">
                     <Heading>{title}</Heading>
                     {text.map((item, index) => (
                         <p key={index}>{item}</p>

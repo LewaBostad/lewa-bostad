@@ -1,0 +1,42 @@
+.button {
+    width: 100%;
+    padding-inline: var(--spacing-sm);
+    padding-block: var(--spacing-xs);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+        background-color var(--duration-base) var(--ease-default),
+        color var(--duration-base) var(--ease-default);
+}
+
+.brand {
+    background-color: var(--color-background-brand);
+    color: var(--color-text-on-brand);
+}
+
+.brand:hover {
+    background-color: var(--color-brand-hover);
+    color: var(--color-text-on-brand);
+}
+
+.default {
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+}
+
+.default:hover {
+    background-color: var(--color-background-alt);
+    color: var(--color-text-primary);
+}
+
+.alt {
+    background-color: var(--color-background-alt);
+    color: var(--color-text-primary);
+}
+
+.alt:hover {
+    background-color: var(--color-background-brand);
+    color: var(--color-text-on-brand);
+}

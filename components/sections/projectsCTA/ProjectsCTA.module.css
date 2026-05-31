@@ -1,0 +1,40 @@
+.grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+}
+
+@media (min-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: end;
+}
+
+.hideMobile {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .hideMobile {
+        display: unset;
+    }
+}
+
+.hideDesktop {
+    display: unset;
+    width: 100%;
+    display: block;
+}
+
+@media (min-width: 768px) {
+    .hideDesktop {
+        display: none;
+    }
+}
