@@ -4,7 +4,7 @@ import ProjectCard from "@/components/ui/projectCard/ProjectCard";
 
 export default function OurProjects() {
     return (
-        <section className="section section--default stack">
+        <section className="section section--default section--page-start stack">
             <div className="stack">
                 <h1>Hitta hem hos oss.</h1>
                 <p className="prose">

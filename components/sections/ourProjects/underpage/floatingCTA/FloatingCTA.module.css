@@ -1,0 +1,41 @@
+.cta {
+    position: fixed;
+    bottom: var(--content-padding-x-mobile);
+    right: var(--content-padding-x-mobile);
+    z-index: var(--z-sticky);
+
+    padding-inline: var(--spacing-sm);
+    padding-block: var(--spacing-xs);
+    background-color: var(--color-background-brand);
+    color: var(--color-text-on-brand);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0;
+    transform: translateY(var(--space-3));
+    pointer-events: none;
+    transition:
+        opacity var(--duration-base) var(--ease-out),
+        transform var(--duration-base) var(--ease-out),
+        background-color var(--duration-base) var(--ease-default);
+}
+
+.cta.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.cta:hover {
+    background-color: var(--color-brand-hover);
+    color: var(--color-text-on-brand);
+}
+
+@media (min-width: 768px) {
+    .cta {
+        bottom: var(--content-padding-x);
+        right: var(--content-padding-x);
+    }
+}

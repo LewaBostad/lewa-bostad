@@ -1,7 +1,8 @@
 import { Project } from "@/types/Project.types";
-import Image from "next/image";
 import Hero from "./hero/Hero";
 import SplitSection from "../../splitSection/SplitSection";
+import InterestForm from "./interestForm/InterestForm";
+import FloatingCTA from "./floatingCTA/FloatingCTA";
 import styles from "./Underpage.module.css";
 
 interface UnderpageProps {
@@ -11,6 +12,7 @@ interface UnderpageProps {
 export default function Underpage({ project }: UnderpageProps) {
     return (
         <div>
+            <FloatingCTA />
             <Hero project={project} />
             <div className={styles.sections}>
                 {project.sections.map((section, index) => (
@@ -27,6 +29,10 @@ export default function Underpage({ project }: UnderpageProps) {
                     />
                 ))}
             </div>
+            <InterestForm
+                projectTitle={project.title}
+                background={project.sections.length % 2 === 0 ? "default" : "alt"}
+            />
         </div>
     );
 }

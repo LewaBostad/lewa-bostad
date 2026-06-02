@@ -104,12 +104,6 @@
     gap: var(--spacing-stack);
 }
 
-@media (min-width: 768px) {
-    .split__content {
-        padding: var(--spacing-section) var(--spacing-lg);
-    }
-}
-
 .property-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -138,11 +132,13 @@
 
 :root {
     --logo-height: 42px;
+    --header-height: 66px;
 }
 
 @media (max-width: 768px) {
     :root {
         --logo-height: 36px;
+        --header-height: 60px;
     }
 }
 
@@ -156,4 +152,14 @@
 
 .section--no-padding-bottom {
     padding-block-end: var(--spacing-md);
+}
+
+.section--page-start {
+    padding-block-start: calc(var(--spacing-section-sm) + var(--header-height));
+}
+
+@media (min-width: 768px) {
+    .section--page-start {
+        padding-block-start: calc(var(--spacing-section) + var(--header-height));
+    }
 }

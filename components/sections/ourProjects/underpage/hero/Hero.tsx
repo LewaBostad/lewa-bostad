@@ -9,7 +9,7 @@ interface HeroProps {
 
 export default function Hero({ project }: HeroProps) {
     return (
-        <section className={styles.sectionWrapper}>
+        <section className={styles.sectionWrapper} id="hero">
             <div className={styles.imageWrapper}>
                 <Image
                     src={project.images.thumbnail.src}
