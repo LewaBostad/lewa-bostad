@@ -7,6 +7,7 @@ interface SplitSectionBleedProps {
     imageAlt: string;
     imagePosition: "left" | "right";
     background?: Background;
+    fullHeight?: boolean;
     children: React.ReactNode;
 }
 
@@ -15,15 +16,20 @@ export default function SplitSectionBleed({
     imageAlt,
     imagePosition,
     background = "default",
+    fullHeight,
     children,
 }: SplitSectionBleedProps) {
     return (
-        <section className={`section--${background} section--bleed`}>
+        <section
+            className={`section--${background} section--bleed ${fullHeight ? "section--full-height" : ""}`}
+        >
             <div
-                className={`split split--no-gap ${imagePosition === "left" ? "split--image-left" : ""}`}
+                className={`split split--no-gap ${fullHeight ? "split--full-height" : ""} ${imagePosition === "left" ? "split--image-left" : ""}`}
             >
                 <div className="section split__content stack">{children}</div>
-                <div className={styles.imageWrapper}>
+                <div
+                    className={`${styles.imageWrapper} ${fullHeight ? styles.imageWrapperFullHeight : ""}`}
+                >
                     <Image src={image} alt={imageAlt} fill style={{ objectFit: "cover" }} />
                 </div>
             </div>

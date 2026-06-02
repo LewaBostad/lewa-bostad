@@ -3,6 +3,16 @@
     min-height: 400px;
 }
 
+.imageWrapperFullHeight {
+    height: 55vh;
+}
+
+@media (min-width: 768px) {
+    .imageWrapperFullHeight {
+        height: 100dvh;
+    }
+}
+
 @media (min-width: 768px) {
     .imageWrapper {
         min-height: 70vh;

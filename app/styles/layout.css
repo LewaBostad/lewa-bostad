@@ -33,6 +33,10 @@
     padding-inline: 0;
 }
 
+.section--full-height {
+    min-height: calc(100dvh) !important;
+}
+
 .split {
     display: grid;
     grid-template-columns: 1fr;
@@ -42,6 +46,10 @@
 
 .split--no-gap {
     gap: 0 !important;
+}
+
+.split--full-height {
+    min-height: 100dvh;
 }
 
 @media (min-width: 768px) {
