@@ -19,7 +19,7 @@ export default function ProjectCard({ project, link = false }: ProjectCardProps)
             </div>
             <div className={styles.textWrapper}>
                 <div>
-                    <p>{title}</p>
+                    <p className={styles.title}>{title}</p>
                     <p className={styles.meta}>{location}</p>
                 </div>
                 <p className={styles.meta}>{project.status.label}</p>

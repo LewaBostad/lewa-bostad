@@ -28,7 +28,9 @@ export default function Hero({ project }: HeroProps) {
             </div>
             <div className={styles.section}>
                 <div className={styles.outer}>
-                    <h1>{project.title}</h1>
+                    <h1>
+                        {project.title}, <span className={styles.italic}>{project.location}</span>
+                    </h1>
                     <div className={styles.grid}>
                         {project.objectInfo.map((item) => (
                             <div key={item.title} className={styles.object}>

@@ -30,13 +30,18 @@
     align-items: center;
 }
 
+.title {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-lg);
+}
+
 .meta {
     font-family: var(--font-body);
     font-size: var(--text-meta);
-    font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-thin);
     line-height: var(--line-height-small);
     letter-spacing: var(--tracking-meta);
-    color: var(--color-text-muted);
+    color: var(--color-text-secondary);
     transition: var(--transition-color);
 }
 
