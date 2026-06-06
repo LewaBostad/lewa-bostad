@@ -1,7 +1,11 @@
 :root {
+    --color-sage-950: #2a3228;
     --color-sage-900: #455041;
     --color-sage-800: #556352;
     --color-sage-700: #667764;
+    --color-sage-600: #788f75;
+    --color-sage-200: #c4cdc3;
+    --color-sage-100: #dde3dc;
 
     --color-warm-100: #f5f0eb;
     --color-warm-200: #ede8e2;
@@ -33,4 +37,5 @@
 
     --color-border: var(--color-warm-300);
     --color-border-subtle: var(--color-warm-200);
+    --color-border-brand: var(--color-sage-700);
 }
