@@ -4,6 +4,12 @@
     position: relative;
 }
 
+@media (max-width: 767px) {
+    .section {
+        height: 100svh;
+    }
+}
+
 .section video {
     width: 100%;
     height: 100%;

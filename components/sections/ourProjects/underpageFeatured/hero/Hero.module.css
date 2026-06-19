@@ -5,6 +5,12 @@
     position: relative;
 }
 
+@media (max-width: 767px) {
+    .sectionWrapper {
+        height: calc(100svh - var(--section-bar-height));
+    }
+}
+
 .imageWrapper {
     position: relative;
     width: 100%;
