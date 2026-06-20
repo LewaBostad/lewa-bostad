@@ -1,9 +1,18 @@
 "use server";
 
 import { z } from "zod";
+import { projectData } from "@/components/sections/ourProjects/data";
+
+const VALID_SLUGS = new Set(projectData.map((p) => p.slug));
 
 const schema = z.object({
-    projects: z.array(z.string()).min(1, "Välj minst ett projekt"),
+    projects: z
+        .array(z.string())
+        .min(1, "Välj minst ett projekt")
+        .refine(
+            (slugs) => slugs.every((s) => VALID_SLUGS.has(s)),
+            "Ogiltigt projekturval",
+        ),
     firstName: z.string().min(1, "Ange ditt förnamn"),
     lastName: z.string().min(1, "Ange ditt efternamn"),
     email: z.email("Ange en giltig e-postadress"),
@@ -40,8 +49,59 @@ export async function submitInterest(
         };
     }
 
-    // TODO: Mailchimp API call goes here
-    console.log("Submitted:", result.data);
+    const { firstName, lastName, email, phone, projects } = result.data;
+
+    const projectTitles = projects.map(
+        (slug) => projectData.find((p) => p.slug === slug)!.title,
+    );
+
+    const apiKey = process.env.MAILCHIMP_API_KEY;
+    const audienceId = process.env.MAILCHIMP_AUDIENCE_ID;
+    const server = process.env.MAILCHIMP_SERVER_PREFIX;
+
+    if (!apiKey || !audienceId || !server) {
+        console.error("Missing Mailchimp env vars");
+        return { errors: { email: "Något gick fel, försök igen senare." } };
+    }
+
+    // MD5 hash required by Mailchimp to identify a member
+    const crypto = await import("crypto");
+    const hash = crypto.createHash("md5").update(email.toLowerCase()).digest("hex");
+
+    const baseUrl = `https://${server}.api.mailchimp.com/3.0/lists/${audienceId}/members/${hash}`;
+    const headers = {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+    };
+
+    // Upsert the contact
+    const upsertRes = await fetch(baseUrl, {
+        method: "PUT",
+        headers,
+        body: JSON.stringify({
+            email_address: email,
+            status_if_new: "subscribed",
+            merge_fields: {
+                FNAME: firstName,
+                LNAME: lastName,
+                PHONE: phone ?? "",
+            },
+        }),
+    });
+
+    if (!upsertRes.ok) {
+        console.error("Mailchimp upsert failed:", await upsertRes.text());
+        return { errors: { email: "Något gick fel, försök igen senare." } };
+    }
+
+    // Apply one tag per selected project
+    await fetch(`${baseUrl}/tags`, {
+        method: "POST",
+        headers,
+        body: JSON.stringify({
+            tags: projectTitles.map((name) => ({ name, status: "active" })),
+        }),
+    });
 
     return { success: true };
 }
