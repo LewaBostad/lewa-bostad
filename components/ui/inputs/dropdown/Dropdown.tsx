@@ -45,7 +45,7 @@ export default function Dropdown(props: DropdownProps) {
                 <input
                     type="hidden"
                     name="project"
-                    value={props.project.slug}
+                    value={props.project.title}
                 />
                 <p className={styles.projectLabel}>
                     {props.project.title}
@@ -76,7 +76,7 @@ export default function Dropdown(props: DropdownProps) {
                     key={slug}
                     type="hidden"
                     name="project"
-                    value={slug}
+                    value={projects?.find((p) => p.slug === slug)?.title ?? slug}
                 />
             ))}
 

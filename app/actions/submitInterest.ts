@@ -1,18 +1,15 @@
 "use server";
 
 import { z } from "zod";
-import { projectData } from "@/components/sections/ourProjects/data";
 
-const VALID_SLUGS = new Set(projectData.map((p) => p.slug));
+const slugSchema = z
+    .string()
+    .min(1)
+    .max(100)
+    .regex(/^[a-zA-Z0-9À-ɏ\s\-_]+$/, "Ogiltigt projekturval");
 
 const schema = z.object({
-    projects: z
-        .array(z.string())
-        .min(1, "Välj minst ett projekt")
-        .refine(
-            (slugs) => slugs.every((s) => VALID_SLUGS.has(s)),
-            "Ogiltigt projekturval",
-        ),
+    projects: z.array(slugSchema).min(1, "Välj minst ett projekt"),
     firstName: z.string().min(1, "Ange ditt förnamn"),
     lastName: z.string().min(1, "Ange ditt efternamn"),
     email: z.email("Ange en giltig e-postadress"),
@@ -50,10 +47,6 @@ export async function submitInterest(
     }
 
     const { firstName, lastName, email, phone, projects } = result.data;
-
-    const projectTitles = projects.map(
-        (slug) => projectData.find((p) => p.slug === slug)!.title,
-    );
 
     const apiKey = process.env.MAILCHIMP_API_KEY;
     const audienceId = process.env.MAILCHIMP_AUDIENCE_ID;
@@ -99,7 +92,7 @@ export async function submitInterest(
         method: "POST",
         headers,
         body: JSON.stringify({
-            tags: projectTitles.map((name) => ({ name, status: "active" })),
+            tags: projects.map((name) => ({ name, status: "active" })),
         }),
     });
 
