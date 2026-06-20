@@ -108,6 +108,20 @@ export default function EstateMap({
                         }
                     }
 
+                    if (window.innerWidth < 768) {
+                        // Pan so the tooltip (above the marker) is centered, not the marker itself.
+                        // Project the marker to pixels, shift up by tooltip half-height + gap,
+                        // then unproject back to get the lng/lat that should sit at map center.
+                        const markerPx = map.project([estate.lng, estate.lat]);
+                        const tooltipOffset = 120;
+                        const newCenter = map.unproject([
+                            markerPx.x,
+                            markerPx.y - tooltipOffset,
+                        ]);
+                        map.easeTo({ center: newCenter, duration: 300 });
+                        return;
+                    }
+
                     const mapRect = map
                         .getContainer()
                         .getBoundingClientRect();

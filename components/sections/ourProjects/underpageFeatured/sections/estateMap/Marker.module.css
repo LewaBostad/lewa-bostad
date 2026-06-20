@@ -23,6 +23,13 @@
     color: var(--color-background);
 }
 
+@media (max-width: 767px) {
+    .icon {
+        width: 11px !important;
+        height: 11px !important;
+    }
+}
+
 /* ── Tooltip ── */
 .tooltip {
     position: absolute;
@@ -82,6 +89,29 @@
     font-size: 0.7rem;
 }
 
+@media (max-width: 767px) {
+    .tooltip {
+        width: 160px;
+    }
+
+    .tooltipHeader {
+        padding: 8px;
+    }
+
+    .tooltipTitle {
+        font-size: 0.75rem;
+    }
+
+    .tooltipImage {
+        height: 90px;
+        margin-inline: 8px;
+    }
+
+    .tooltipFooter {
+        padding: 8px;
+    }
+}
+
 /* ── Status variants ── */
 
 .marker[data-status="planned"] {
@@ -90,16 +120,17 @@
 }
 
 .marker[data-status="ongoing"] {
-    background-color: var(--color-marker-ongoing);
+    background-color: var(--color-background-brand);
     opacity: 65%;
 }
 
 .marker[data-status="completed"] {
     background-color: var(--color-background-brand);
-    opacity: 65%;
+    opacity: 100%;
 }
 
 .marker[data-current="true"] {
     background-color: var(--color-background-brand);
     opacity: 100%;
 }
+
