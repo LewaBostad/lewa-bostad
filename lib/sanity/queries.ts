@@ -241,6 +241,13 @@ export async function getAllProjectSlugs(): Promise<string[]> {
     return client.fetch(PROJECT_SLUGS_QUERY);
 }
 
+export async function getProjectsForSitemap(): Promise<{ slug: string; updatedAt: string }[]> {
+    "use cache";
+    cacheLife("max");
+    cacheTag("projects");
+    return client.fetch(`*[_type == "project"] { "slug": slug.current, "updatedAt": _updatedAt }`);
+}
+
 export async function getProject(slug: string): Promise<Project | null> {
     "use cache";
     cacheLife("max");
