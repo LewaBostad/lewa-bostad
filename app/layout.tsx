@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./styles/globals.css";
 
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 
 const cormorant = Cormorant_Garamond({
@@ -44,6 +45,7 @@ export default function RootLayout({
             className={`${dmSans.variable} ${cormorant.variable}`}
         >
             <body>{children}</body>
+            <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
         </html>
     );
 }
