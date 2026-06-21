@@ -106,6 +106,8 @@ interface BaseProject {
         label: string;
     };
     objectInfo: ProjectObjectInfo[];
+    hideObjectInfo?: boolean;
+    objectInfoPlaceholder?: string;
     images: {
         thumbnail: ProjectImage;
         gallery: ProjectImage[];

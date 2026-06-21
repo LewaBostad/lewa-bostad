@@ -73,6 +73,23 @@ export const projectType = defineType({
             of: [defineArrayMember({ type: "objectInfo" })],
         }),
         defineField({
+            name: "hideObjectInfo",
+            title: "Dölj objektfakta",
+            type: "boolean",
+            group: "general",
+            description: "Aktivera för att visa en platshållartext istället för objektfakta (t.ex. när informationen inte är klar än)",
+            initialValue: false,
+        }),
+        defineField({
+            name: "objectInfoPlaceholder",
+            title: "Platshållartext",
+            type: "string",
+            group: "general",
+            description: "Visas istället för objektfakta när ovanstående toggle är aktiverad",
+            initialValue: "Mer information kommer snart",
+            hidden: ({ document }) => !document?.hideObjectInfo,
+        }),
+        defineField({
             name: "thumbnail",
             title: "Omslagsbild",
             type: "image",

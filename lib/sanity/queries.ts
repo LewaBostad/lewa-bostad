@@ -31,6 +31,8 @@ const PROJECT_LIST_QUERY = `*[_type == "project"] | order(_createdAt asc) {
     "lng": coordinates.lng,
     "status": { "value": status, "label": ${statusLabel} },
     objectInfo[] { title, value },
+    hideObjectInfo,
+    objectInfoPlaceholder,
     "images": {
         "thumbnail": thumbnail ${thumbProjection},
         "gallery": gallery[] ${imageProjection}
@@ -51,6 +53,8 @@ const STANDARD_PROJECT_QUERY = `*[_type == "project" && slug.current == $slug][0
     "lng": coordinates.lng,
     "status": { "value": status, "label": ${statusLabel} },
     objectInfo[] { title, value },
+    hideObjectInfo,
+    objectInfoPlaceholder,
     "images": {
         "thumbnail": thumbnail ${thumbProjection},
         "gallery": gallery[] ${imageProjection}

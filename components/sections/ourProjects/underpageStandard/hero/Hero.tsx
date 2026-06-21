@@ -33,14 +33,20 @@ export default function Hero({ project }: HeroProps) {
                     <h1>
                         {project.title}, <span className={styles.italic}>{project.location}</span>
                     </h1>
-                    <div className={styles.grid}>
-                        {project.objectInfo.map((item) => (
-                            <div key={item.title} className={styles.object}>
-                                <p className="text-meta">{item.title}</p>
-                                <p className={styles.value}>{item.value}</p>
-                            </div>
-                        ))}
-                    </div>
+                    {project.hideObjectInfo ? (
+                        <p className={styles.placeholder}>
+                            {project.objectInfoPlaceholder ?? "Mer information kommer snart"}
+                        </p>
+                    ) : (
+                        <div className={styles.grid}>
+                            {project.objectInfo.map((item) => (
+                                <div key={item.title} className={styles.object}>
+                                    <p className="text-meta">{item.title}</p>
+                                    <p className={styles.value}>{item.value}</p>
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
             </div>
         </section>
