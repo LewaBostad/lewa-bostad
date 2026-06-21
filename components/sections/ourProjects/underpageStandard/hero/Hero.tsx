@@ -19,14 +19,16 @@ export default function Hero({ project }: HeroProps) {
                     className={styles.image}
                     fill
                 />
-                <div className={styles.buttonWrapper}>
-                    <PrimaryButton
-                        type="link"
-                        href={`/vara-projekt/${project.slug}/galleri`}
-                        label="Visa alla bilder"
-                        background="ghost"
-                    />
-                </div>
+                {project.images.gallery?.length > 0 && (
+                    <div className={styles.buttonWrapper}>
+                        <PrimaryButton
+                            type="link"
+                            href={`/vara-projekt/${project.slug}/galleri`}
+                            label="Visa alla bilder"
+                            background="ghost"
+                        />
+                    </div>
+                )}
             </div>
             <div className={styles.section}>
                 <div className={styles.outer}>

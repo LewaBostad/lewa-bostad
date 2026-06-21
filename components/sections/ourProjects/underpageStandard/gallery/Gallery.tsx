@@ -37,7 +37,7 @@ export default function Gallery({ project }: GalleryProps) {
                 </div>
             </div>
             <div className={`${styles.galleryContainer} container--wide`}>
-                {project.images.gallery.map((image, index) => (
+                {(project.images.gallery ?? []).map((image, index) => (
                     <div key={index} className={styles.imageWrapper}>
                         <Image src={image.src} alt={image.alt} fill sizes="(max-width: 1200px) 100vw, 1200px" style={{ objectFit: "cover" }} />
                     </div>
