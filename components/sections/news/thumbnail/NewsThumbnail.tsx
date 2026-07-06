@@ -30,7 +30,7 @@ export default function NewsThumbnail({ article, referrer }: NewsThumbnailProps)
                         alt={article.image.alt || article.title}
                         fill
                         className={styles.image}
-                        sizes="(min-width: 768px) 400px, 100vw"
+                        sizes="(max-width: 768px) 100vw, 50vw"
                     />
                 </div>
             )}
