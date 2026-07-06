@@ -17,8 +17,8 @@ interface MobileMenuProps {
 export default function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
     const pathname = usePathname();
 
-    const handleHome = () => {
-        if (pathname === "/") {
+    const handleLinkClick = (href: string) => {
+        if (pathname === href) {
             window.scrollTo({ top: 0, behavior: "smooth" });
             setIsOpen(false);
         }
@@ -38,7 +38,7 @@ export default function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
     return (
         <div className={`${styles.menu} ${isOpen ? styles.open : ""}`}>
             <div className={styles.header}>
-                <Link href="/" onClick={handleHome}>
+                <Link href="/" onClick={() => handleLinkClick("/")}>
                     <Image
                         src={logo}
                         alt="Logga för lewa bostad"
@@ -57,12 +57,17 @@ export default function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
                 </button>
             </div>
             <nav className={styles.nav}>
-                <Link key="hem" href="/" className={styles.link} onClick={handleHome}>
+                <Link key="hem" href="/" className={styles.link} onClick={() => handleLinkClick("/")}>
                     <span>Hem</span>
                     <span className={styles.chevron}><IconChevronRight2Outline24 size={12} /></span>
                 </Link>
                 {menu.map((item) => (
-                    <Link key={item.href} href={item.href} className={styles.link}>
+                    <Link
+                        key={item.href}
+                        href={item.href}
+                        className={styles.link}
+                        onClick={() => handleLinkClick(item.href)}
+                    >
                         <span>{item.label}</span>
                         <span className={styles.chevron}><IconChevronRight2Outline24 size={12} /></span>
                     </Link>

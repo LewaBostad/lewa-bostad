@@ -79,7 +79,7 @@
 .overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.3);
+    background: color-mix(in srgb, var(--color-brand) 30%, transparent);
     backdrop-filter: blur(4px);
     z-index: var(--z-modal);
     opacity: 0;
