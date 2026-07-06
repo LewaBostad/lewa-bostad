@@ -2,6 +2,7 @@ import styles from "./SectionSubsections.module.css";
 import Bulletpoint from "@/components/ui/bulletpoint/Bulletpoint";
 import { SectionSubsections as SectionSubsectionsType } from "@/types/Project.types";
 import { Background } from "@/types/Props.types";
+import RealtorLinkButton from "@/components/ui/buttons/RealtorLinkButton";
 
 interface SectionSubsectionsProps {
     data: SectionSubsectionsType;
@@ -33,6 +34,9 @@ export default function SectionSubsections({ data, background = "default", id, e
                             </div>
                         </div>
                     ))}
+                    <div className={styles.buttonRow}>
+                        <RealtorLinkButton href={data.realtorLink} label={data.realtorLinkLabel} />
+                    </div>
                 </div>
             </div>
         </section>

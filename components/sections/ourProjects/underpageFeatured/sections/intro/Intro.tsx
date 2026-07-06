@@ -1,6 +1,7 @@
 import styles from "./Intro.module.css";
 import { IntroSection } from "@/types/Project.types";
 import { Background } from "@/types/Props.types";
+import RealtorLinkButton from "@/components/ui/buttons/RealtorLinkButton";
 
 const PROCESS_STEPS = [
     "Projektet inleds",
@@ -48,6 +49,10 @@ export default function Intro({ intro, background = "default", id, eyebrow, hide
                             <span className={styles.objectValue}>{item.value}</span>
                         </div>
                     ))}
+                </div>
+
+                <div className={styles.buttonRow}>
+                    <RealtorLinkButton href={intro.realtorLink} label={intro.realtorLinkLabel} />
                 </div>
             </div>
         </section>

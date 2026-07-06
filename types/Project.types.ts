@@ -8,8 +8,10 @@ export interface ProjectImage {
 export interface StandardProjectSection {
     title: string;
     text: string;
-    image: ProjectImage;
+    image: ProjectImage | null;
     imageOrientation: "left" | "right";
+    realtorLink?: string;
+    realtorLinkLabel?: string;
 }
 
 export interface SubSection {
@@ -26,6 +28,8 @@ export interface IntroSection {
     objectInfo: ProjectObjectInfo[];
     eyebrow: string;
     hideEyebrow?: boolean;
+    realtorLink?: string;
+    realtorLinkLabel?: string;
 }
 
 export interface SectionText {
@@ -34,26 +38,32 @@ export interface SectionText {
     text: string;
     eyebrow: string;
     hideEyebrow?: boolean;
+    realtorLink?: string;
+    realtorLinkLabel?: string;
 }
 
 export interface SectionSplit {
     _type: "sectionSplit";
     title: string;
     text: string;
-    image: ProjectImage;
+    image: ProjectImage | null;
     imageOrientation: "left" | "right";
     eyebrow: string;
     hideEyebrow?: boolean;
+    realtorLink?: string;
+    realtorLinkLabel?: string;
 }
 
 export interface SectionSplitDouble {
     _type: "sectionSplitDouble";
     title: string;
     text: string;
-    image1: ProjectImage;
-    image2: ProjectImage;
+    image1: ProjectImage | null;
+    image2: ProjectImage | null;
     eyebrow: string;
     hideEyebrow?: boolean;
+    realtorLink?: string;
+    realtorLinkLabel?: string;
 }
 
 export interface SectionBullets {
@@ -63,6 +73,8 @@ export interface SectionBullets {
     bulletPoints: string[];
     eyebrow: string;
     hideEyebrow?: boolean;
+    realtorLink?: string;
+    realtorLinkLabel?: string;
 }
 
 export interface SectionSubsections {
@@ -71,6 +83,8 @@ export interface SectionSubsections {
     subSections: SubSection[];
     eyebrow: string;
     hideEyebrow?: boolean;
+    realtorLink?: string;
+    realtorLinkLabel?: string;
 }
 
 export interface SectionMapBlock {

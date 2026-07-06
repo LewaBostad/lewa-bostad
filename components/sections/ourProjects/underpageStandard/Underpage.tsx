@@ -22,10 +22,12 @@ export default function Underpage({ project }: UnderpageProps) {
                         headingLevel="h2"
                         headingSize="h2"
                         text={[section.text]}
-                        image={section.image.src}
-                        imageAlt={section.image.alt}
+                        image={section.image?.src}
+                        imageAlt={section.image?.alt}
                         imagePosition={section.imageOrientation}
                         background={index % 2 === 0 ? "default" : "alt"}
+                        realtorLink={section.realtorLink}
+                        realtorLinkLabel={section.realtorLinkLabel}
                     />
                 ))}
             </div>

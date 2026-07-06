@@ -65,7 +65,9 @@ const STANDARD_PROJECT_QUERY = `*[_type == "project" && slug.current == $slug][0
         title,
         text,
         "image": image ${imageProjection},
-        "imageOrientation": imageOrientation
+        "imageOrientation": imageOrientation,
+        realtorLink,
+        realtorLinkLabel
     }
 }`;
 
@@ -97,7 +99,9 @@ const FEATURED_PROJECT_QUERY = `*[_type == "project" && slug.current == $slug][0
         "image1": image1 ${imageProjection},
         "image2": image2 ${imageProjection},
         bulletPoints,
-        subSections[] { title, text, bulletPoints }
+        subSections[] { title, text, bulletPoints },
+        realtorLink,
+        realtorLinkLabel
     }
 }`;
 

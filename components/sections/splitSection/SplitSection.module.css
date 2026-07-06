@@ -13,3 +13,7 @@
         min-height: 600px;
     }
 }
+
+:global(.split).noImage {
+    grid-template-columns: 1fr;
+}

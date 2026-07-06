@@ -1,4 +1,5 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
+import { realtorLinkField, realtorLinkLabelField } from "../fields/realtorLink";
 
 const eyebrowField = defineField({
     name: "eyebrow",
@@ -63,6 +64,8 @@ export const introSectionType = defineType({
             description: "Faktatåda med projektdetaljer, t.ex. Byggstart, Inflyttning, Antal bostäder",
             of: [defineArrayMember({ type: "objectInfo" })],
         }),
+        realtorLinkField,
+        realtorLinkLabelField,
     ],
     preview: {
         select: { title: "title" },
@@ -91,6 +94,8 @@ export const sectionTextType = defineType({
             rows: 5,
             validation: (Rule) => Rule.required(),
         }),
+        realtorLinkField,
+        realtorLinkLabelField,
     ],
     preview: {
         select: { title: "title" },
@@ -121,8 +126,9 @@ export const sectionSplitType = defineType({
         }),
         defineField({
             name: "image",
-            title: "Bild",
+            title: "Bild (valfri)",
             type: "image",
+            description: "Lämna tomt för att visa sektionen utan bild",
             options: { hotspot: true },
             fields: [
                 defineField({
@@ -132,7 +138,6 @@ export const sectionSplitType = defineType({
                     description: "Beskriv bilden kort",
                 }),
             ],
-            validation: (Rule) => Rule.required(),
         }),
         defineField({
             name: "imageOrientation",
@@ -148,6 +153,8 @@ export const sectionSplitType = defineType({
             initialValue: "right",
             validation: (Rule) => Rule.required(),
         }),
+        realtorLinkField,
+        realtorLinkLabelField,
     ],
     preview: {
         select: { title: "title", media: "image" },
@@ -177,8 +184,9 @@ export const sectionSplitDoubleType = defineType({
         }),
         defineField({
             name: "image1",
-            title: "Bild 1",
+            title: "Bild 1 (valfri)",
             type: "image",
+            description: "Lämna tomt för att visa sektionen utan denna bild",
             options: { hotspot: true },
             fields: [
                 defineField({
@@ -187,12 +195,12 @@ export const sectionSplitDoubleType = defineType({
                     type: "string",
                 }),
             ],
-            validation: (Rule) => Rule.required(),
         }),
         defineField({
             name: "image2",
-            title: "Bild 2",
+            title: "Bild 2 (valfri)",
             type: "image",
+            description: "Lämna tomt för att visa sektionen utan denna bild",
             options: { hotspot: true },
             fields: [
                 defineField({
@@ -201,8 +209,9 @@ export const sectionSplitDoubleType = defineType({
                     type: "string",
                 }),
             ],
-            validation: (Rule) => Rule.required(),
         }),
+        realtorLinkField,
+        realtorLinkLabelField,
     ],
     preview: {
         select: { title: "title", media: "image1" },
@@ -238,6 +247,8 @@ export const sectionBulletsType = defineType({
             of: [defineArrayMember({ type: "string" })],
             validation: (Rule) => Rule.required().min(1),
         }),
+        realtorLinkField,
+        realtorLinkLabelField,
     ],
     preview: {
         select: { title: "title" },
@@ -296,6 +307,8 @@ export const sectionSubsectionsType = defineType({
             of: [defineArrayMember({ type: "subSection" })],
             validation: (Rule) => Rule.required().min(1),
         }),
+        realtorLinkField,
+        realtorLinkLabelField,
     ],
     preview: {
         select: { title: "title" },

@@ -2,6 +2,7 @@ import styles from "./SectionBullets.module.css";
 import Bulletpoint from "@/components/ui/bulletpoint/Bulletpoint";
 import { SectionBullets as SectionBulletsType } from "@/types/Project.types";
 import { Background } from "@/types/Props.types";
+import RealtorLinkButton from "@/components/ui/buttons/RealtorLinkButton";
 
 interface SectionBulletsProps {
     data: SectionBulletsType;
@@ -26,6 +27,7 @@ export default function SectionBullets({ data, background = "default", id, eyebr
                             ))}
                         </div>
                     </div>
+                    <RealtorLinkButton href={data.realtorLink} label={data.realtorLinkLabel} />
                 </div>
             </div>
         </section>

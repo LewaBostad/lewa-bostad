@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import { realtorLinkField, realtorLinkLabelField } from "../fields/realtorLink";
 
 export const standardSectionType = defineType({
     name: "standardSection",
@@ -21,8 +22,9 @@ export const standardSectionType = defineType({
         }),
         defineField({
             name: "image",
-            title: "Bild",
+            title: "Bild (valfri)",
             type: "image",
+            description: "Lämna tomt för att visa sektionen utan bild",
             options: { hotspot: true },
             fields: [
                 defineField({
@@ -32,7 +34,6 @@ export const standardSectionType = defineType({
                     description: "Beskriv bilden kort – används av skärmläsare och sökmotorer",
                 }),
             ],
-            validation: (Rule) => Rule.required(),
         }),
         defineField({
             name: "imageOrientation",
@@ -49,6 +50,8 @@ export const standardSectionType = defineType({
             initialValue: "right",
             validation: (Rule) => Rule.required(),
         }),
+        realtorLinkField,
+        realtorLinkLabelField,
     ],
     preview: {
         select: { title: "title", media: "image" },

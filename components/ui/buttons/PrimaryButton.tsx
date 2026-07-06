@@ -10,6 +10,7 @@ type PrimaryButtonProps =
           onClick?: never;
           background?: Background;
           disabled?: boolean;
+          newTab?: boolean;
       }
     | {
           type: "submit" | "reset" | "button";
@@ -18,6 +19,7 @@ type PrimaryButtonProps =
           onClick?: () => void;
           background?: Background;
           disabled?: boolean;
+          newTab?: never;
       };
 
 export default function PrimaryButton({
@@ -27,11 +29,14 @@ export default function PrimaryButton({
     href,
     onClick,
     disabled,
+    newTab,
 }: PrimaryButtonProps) {
     if (type === "link") {
         return (
             <Link
                 href={href}
+                target={newTab ? "_blank" : undefined}
+                rel={newTab ? "noopener noreferrer" : undefined}
                 className={`${styles.button} ${styles[background ?? "default"]}`}
             >
                 <span className={styles.label}>{label}</span>
