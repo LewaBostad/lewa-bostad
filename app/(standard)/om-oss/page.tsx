@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import AboutHero from "@/components/sections/aboutHero/AboutHero";
 import AboutValues from "@/components/sections/aboutValues/AboutValues";
 import SplitSection from "@/components/sections/splitSection/SplitSection";
-import NewsSection from "@/components/sections/news/section/NewsSection";
-import { getAboutPage, getNewsArticles } from "@/lib/sanity/queries";
+import { getAboutPage } from "@/lib/sanity/queries";
 
 export const metadata: Metadata = {
     title: "Om oss",
@@ -23,10 +22,7 @@ export const metadata: Metadata = {
 };
 
 export default async function About() {
-    const [data, articles] = await Promise.all([
-        getAboutPage(),
-        getNewsArticles(),
-    ]);
+    const data = await getAboutPage();
 
     return (
         <div>
@@ -53,15 +49,6 @@ export default async function About() {
                     background={index % 2 === 0 ? "default" : "alt"}
                 />
             ))}
-            {articles.length > 0 && (
-                <NewsSection
-                    background={
-                        data.sections.length % 2 === 0 ? "default" : "alt"
-                    }
-                    articles={articles}
-                    referrer="om-oss"
-                />
-            )}
         </div>
     );
 }

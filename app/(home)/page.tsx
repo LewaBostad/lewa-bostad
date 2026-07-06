@@ -5,7 +5,8 @@ import SplitSection from "@/components/sections/splitSection/SplitSection";
 import KeyFigureSection from "@/components/sections/keyfigures/KeyFigureSection";
 import AboutCTA from "@/components/sections/aboutCTA/AboutCTA";
 import Owners from "@/components/sections/owners/Owners";
-import { getHomePage, blocksToStrings } from "@/lib/sanity/queries";
+import NewsSection from "@/components/sections/news/section/NewsSection";
+import { getHomePage, getNewsArticles, blocksToStrings } from "@/lib/sanity/queries";
 
 export const metadata: Metadata = {
     description:
@@ -19,7 +20,10 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-    const data = await getHomePage();
+    const [data, articles] = await Promise.all([
+        getHomePage(),
+        getNewsArticles(),
+    ]);
 
     const introTextParagraphs = blocksToStrings(data.introText);
 
@@ -58,6 +62,13 @@ export default async function Home() {
                 imageUrl={data.quoteImage.src}
                 imageAlt={data.quoteImage.alt}
             />
+            {articles.length > 0 && (
+                <NewsSection
+                    background="default"
+                    articles={articles}
+                    referrer="hem"
+                />
+            )}
         </div>
     );
 }
