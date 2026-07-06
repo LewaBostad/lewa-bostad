@@ -42,10 +42,6 @@
         font-weight: var(--font-weight-regular);
     }
 
-    .suffix {
-        display: none;
-    }
-
     .label {
         font-size: var(--font-size-meta);
         color: var(--color-sage-300) !important;

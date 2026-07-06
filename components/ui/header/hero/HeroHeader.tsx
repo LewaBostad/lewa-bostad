@@ -22,10 +22,11 @@ export default function HeroHeader() {
         if (!header) return;
 
         let headerHeight = header.getBoundingClientRect().height;
+        let viewportHeight = window.innerHeight;
         let ticking = false;
 
         const update = () => {
-            const threshold = window.innerHeight - headerHeight;
+            const threshold = viewportHeight - headerHeight;
             const scrolled = threshold > 0 ? window.scrollY / threshold : 1;
 
             setIsStuck(window.scrollY >= threshold);
@@ -47,6 +48,7 @@ export default function HeroHeader() {
 
         const onResize = () => {
             headerHeight = header.getBoundingClientRect().height;
+            viewportHeight = window.innerHeight;
             update();
         };
 

@@ -38,8 +38,8 @@
 
 .meta {
     font-family: var(--font-body);
-    font-size: var(--font-size-small);
-    font-weight: var(--font-weight-regular);
+    font-size: var(--font-size-meta);
+    font-weight: var(--font-weight-thin);
     line-height: var(--line-height-small);
     letter-spacing: var(--tracking-meta);
     color: var(--color-text-secondary);

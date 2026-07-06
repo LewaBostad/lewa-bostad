@@ -1,19 +1,17 @@
-"use client";
-
-import { usePathname } from "next/navigation";
+import { Suspense } from "react";
 import { ConsentProvider } from "@/components/ui/consent/ConsentContext";
 import CookieBanner from "@/components/ui/consent/CookieBanner";
 import Footer from "@/components/ui/footer/Footer";
+import ConditionalFooter from "@/components/ui/footer/ConditionalFooter";
 
 export default function SiteShell({ children }: { children: React.ReactNode }) {
-    const pathname = usePathname();
-    const hideFooter = pathname === "/kontakt";
-
     return (
         <ConsentProvider>
             {children}
             <CookieBanner />
-            {!hideFooter && <Footer />}
+            <Suspense fallback={<Footer />}>
+                <ConditionalFooter />
+            </Suspense>
         </ConsentProvider>
     );
 }
