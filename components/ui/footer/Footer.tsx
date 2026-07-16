@@ -8,14 +8,16 @@ const YEAR = new Date().getFullYear();
 
 export default function Footer() {
     return (
-        <footer className={`section section--brand section--no-padding-bottom`}>
+        <footer
+            className={`section section--brand section--no-padding-bottom`}
+        >
             <div className={styles.outer}>
                 <div className="stack">
-                    <h2>
-                        Din bostadsresa börjar här. <br className={styles.break} />
-                        Med ett hej.
-                    </h2>
-                    <p>Varmt välkommen att kontakta oss, så hjälper vi dig vidare.</p>
+                    <h2>Din bostadsresa börjar här.</h2>
+                    <p>
+                        Varmt välkommen att kontakta oss, så hjälper vi dig
+                        vidare.
+                    </p>
                     <div className={styles.button}>
                         <PrimaryButton
                             type="link"
