@@ -26,6 +26,7 @@
     "nucleo-ui-fill-18": "^1.4.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
+    "resend": "^6.22.0",
     "sanity": "^6.1.0",
     "styled-components": "^6.4.2",
     "zod": "^4.4.3"

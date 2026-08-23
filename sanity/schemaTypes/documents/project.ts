@@ -67,6 +67,26 @@ export const projectType = defineType({
             description: "Sökmotorn: Klicka på kartan eller ange koordinater för att placera projektet på kartan",
         }),
         defineField({
+            name: "realtorEmails",
+            title: "Mäklare e-post (avisering)",
+            type: "array",
+            group: "general",
+            description:
+                "E-postadresser som får ett meddelande när någon skickar en intresseanmälan för detta projekt. Lägg till en eller flera.",
+            of: [defineArrayMember({ type: "string" })],
+            validation: (Rule) =>
+                Rule.custom((value) => {
+                    if (!value || value.length === 0) return true;
+                    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    const invalid = value.filter(
+                        (email) => typeof email !== "string" || !emailPattern.test(email),
+                    );
+                    return invalid.length === 0
+                        ? true
+                        : `Ogiltig e-postadress: ${invalid.join(", ")}`;
+                }),
+        }),
+        defineField({
             name: "objectInfo",
             title: "Objektfakta",
             type: "array",

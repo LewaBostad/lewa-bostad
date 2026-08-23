@@ -105,6 +105,13 @@ const FEATURED_PROJECT_QUERY = `*[_type == "project" && slug.current == $slug][0
     }
 }`;
 
+// ── Realtor emails (used to notify realtors of a new interest submission) ─────
+// The interest form submits project titles (see Dropdown.tsx), not slugs, so this looks up by title.
+const REALTOR_EMAILS_QUERY = `*[_type == "project" && title in $titles] {
+    title,
+    realtorEmails
+}`;
+
 // ── Home page ─────────────────────────────────────────────────────────────────
 const HOME_PAGE_QUERY = `*[_type == "homePage"][0] {
     introTitle,
@@ -296,6 +303,12 @@ export async function getProject(slug: string): Promise<Project | null> {
         return client.fetch<FeaturedProject>(FEATURED_PROJECT_QUERY, { slug });
     }
     return client.fetch<StandardProject>(STANDARD_PROJECT_QUERY, { slug });
+}
+
+export async function getRealtorEmailsByProjectTitles(
+    titles: string[],
+): Promise<{ title: string; realtorEmails: string[] | null }[]> {
+    return client.fetch(REALTOR_EMAILS_QUERY, { titles });
 }
 
 export async function getHomePage(): Promise<HomePageData> {
