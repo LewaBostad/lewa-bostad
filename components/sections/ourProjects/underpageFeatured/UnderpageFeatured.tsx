@@ -10,6 +10,7 @@ import SectionBullets from "./sections/sectionBullets/SectionBullets";
 import SectionSubsections from "./sections/sectionSubsections/SectionSubsections";
 import SectionMap from "./sections/sectionMap/SectionMap";
 import Interest from "@/components/sections/interest/Interest";
+import FloatingCTA from "@/components/ui/floatingCTA/FloatingCTA";
 
 interface UnderpageFeaturedProps {
     project: FeaturedProject;
@@ -49,6 +50,7 @@ export default function UnderpageFeatured({ project, allProjects }: UnderpageFea
 
     return (
         <div>
+            <FloatingCTA />
             <Hero project={project} />
             <SectionNav title={project.title} location={project.location} items={navItems} />
             {project.sections.map((section, i) => renderSection(section, i, project.slug, allProjects))}
