@@ -27,6 +27,7 @@ export default function Gdpr({ accepted, onAcceptedChange }: GdprProps) {
                 Jag godkänner att mina uppgifter behandlas enligt{" "}
                 <a
                     href="/integritetspolicy"
+                    className={styles.policyLink}
                     onClick={(e) => e.stopPropagation()}
                 >
                     integritetspolicyn
@@ -36,6 +37,7 @@ export default function Gdpr({ accepted, onAcceptedChange }: GdprProps) {
                 Jag godkänner{" "}
                 <a
                     href="/integritetspolicy"
+                    className={styles.policyLink}
                     onClick={(e) => e.stopPropagation()}
                 >
                     integritetspolicyn

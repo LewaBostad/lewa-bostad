@@ -30,3 +30,8 @@
     line-height: var(--line-height-body);
     color: var(--color-text-body);
 }
+
+.policyLink {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}

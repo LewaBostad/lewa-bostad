@@ -18,7 +18,11 @@ export default function CookieBanner() {
                 Vi använder cookies för att förstå hur besökare använder
                 vår webbplats — det hjälper oss att göra den bättre. Vi
                 delar aldrig dina uppgifter med tredje part i
-                marknadsföringssyfte. Läs mer i vår integritetspolicy.
+                marknadsföringssyfte. Läs mer i vår{" "}
+                <a href="/integritetspolicy" className={styles.policyLink}>
+                    integritetspolicy
+                </a>
+                .
             </p>
             <div className={styles.buttons}>
                 <PrimaryButton

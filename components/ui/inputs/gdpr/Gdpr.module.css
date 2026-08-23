@@ -24,6 +24,11 @@
     font-size: var(--text-small);
 }
 
+.policyLink {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
 .hideDesktop {
     display: block;
 }
