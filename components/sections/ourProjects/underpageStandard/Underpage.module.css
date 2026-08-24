@@ -1,3 +1,16 @@
 .sections {
     border-top: 1px solid var(--color-border);
 }
+
+.realtorCardMobile {
+    display: flex;
+    justify-content: center;
+    padding-inline: var(--content-padding-x-mobile);
+    padding-block: var(--spacing-md);
+}
+
+@media (min-width: 768px) {
+    .realtorCardMobile {
+        display: none;
+    }
+}

@@ -87,6 +87,12 @@ export const projectType = defineType({
                 }),
         }),
         defineField({
+            name: "realtorCard",
+            title: "Mäklarkort",
+            type: "realtorCard",
+            group: "general",
+        }),
+        defineField({
             name: "objectInfo",
             title: "Objektfakta",
             type: "array",

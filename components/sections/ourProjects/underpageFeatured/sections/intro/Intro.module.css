@@ -17,6 +17,11 @@
     text-align: left;
 }
 
+.cardRow {
+    display: flex;
+    justify-content: center;
+}
+
 .buttonRow {
     display: flex;
     justify-content: center;

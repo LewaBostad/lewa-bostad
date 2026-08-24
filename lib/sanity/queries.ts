@@ -14,6 +14,9 @@ import type { NewsArticlePreview, NewsArticle } from "@/types/News.types";
 const imageProjection = `{ "src": asset->url, "alt": coalesce(alt, ""), "width": asset->metadata.dimensions.width, "height": asset->metadata.dimensions.height }`;
 const thumbProjection = imageProjection;
 
+// ── Realtor card (optional, shown on both standard and featured underpages) ───
+const realtorCardProjection = `realtorCard { showRealtorCard, fullName, company, phone, email, "photo": photo ${imageProjection} }`;
+
 // ── Status label map ──────────────────────────────────────────────────────────
 const statusLabel = `select(
     status == "planned" => "Planerat",
@@ -56,6 +59,7 @@ const STANDARD_PROJECT_QUERY = `*[_type == "project" && slug.current == $slug][0
     objectInfo[] { title, value },
     hideObjectInfo,
     objectInfoPlaceholder,
+    ${realtorCardProjection},
     "images": {
         "thumbnail": thumbnail ${thumbProjection},
         "gallery": gallery[] ${imageProjection}
@@ -81,6 +85,7 @@ const FEATURED_PROJECT_QUERY = `*[_type == "project" && slug.current == $slug][0
     "lng": coordinates.lng,
     "status": { "value": status, "label": ${statusLabel} },
     objectInfo[] { title, value },
+    ${realtorCardProjection},
     "images": {
         "thumbnail": thumbnail ${thumbProjection},
         "gallery": gallery[] ${imageProjection}

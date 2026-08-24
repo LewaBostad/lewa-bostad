@@ -1,7 +1,8 @@
 import styles from "./Intro.module.css";
-import { IntroSection } from "@/types/Project.types";
+import { IntroSection, RealtorCard as RealtorCardData } from "@/types/Project.types";
 import { Background } from "@/types/Props.types";
 import RealtorLinkButton from "@/components/ui/buttons/RealtorLinkButton";
+import RealtorCard from "@/components/ui/realtorCard/RealtorCard";
 
 const PROCESS_STEPS = [
     "Projektet inleds",
@@ -17,9 +18,12 @@ interface IntroProps {
     id?: string;
     eyebrow?: string;
     hideEyebrow?: boolean;
+    realtorCard?: RealtorCardData | null;
 }
 
-export default function Intro({ intro, background = "default", id, eyebrow, hideEyebrow }: IntroProps) {
+export default function Intro({ intro, background = "default", id, eyebrow, hideEyebrow, realtorCard }: IntroProps) {
+    const hasRealtorCard = Boolean(realtorCard?.showRealtorCard && realtorCard.fullName);
+
     return (
         <section id={id} className={`section section--${background}`}>
             <div className={`container ${styles.inner}`}>
@@ -51,9 +55,15 @@ export default function Intro({ intro, background = "default", id, eyebrow, hide
                     ))}
                 </div>
 
-                <div className={styles.buttonRow}>
-                    <RealtorLinkButton href={intro.realtorLink} label={intro.realtorLinkLabel} />
-                </div>
+                {hasRealtorCard ? (
+                    <div className={styles.cardRow}>
+                        <RealtorCard realtorCard={realtorCard} />
+                    </div>
+                ) : (
+                    <div className={styles.buttonRow}>
+                        <RealtorLinkButton href={intro.realtorLink} label={intro.realtorLinkLabel} />
+                    </div>
+                )}
             </div>
         </section>
     );

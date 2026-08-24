@@ -2,6 +2,7 @@ import { StandardProject } from "@/types/Project.types";
 import Hero from "./hero/Hero";
 import SplitSection from "../../splitSection/SplitSection";
 import FloatingCTA from "@/components/ui/floatingCTA/FloatingCTA";
+import RealtorCard from "@/components/ui/realtorCard/RealtorCard";
 import styles from "./Underpage.module.css";
 import Interest from "../../interest/Interest";
 
@@ -10,10 +11,17 @@ interface UnderpageProps {
 }
 
 export default function Underpage({ project }: UnderpageProps) {
+    const hasRealtorCard = Boolean(project.realtorCard?.showRealtorCard && project.realtorCard.fullName);
+
     return (
         <div>
             <FloatingCTA />
             <Hero project={project} />
+            {hasRealtorCard && (
+                <div className={styles.realtorCardMobile}>
+                    <RealtorCard realtorCard={project.realtorCard} />
+                </div>
+            )}
             <div className={styles.sections}>
                 {project.sections.map((section, index) => (
                     <SplitSection
