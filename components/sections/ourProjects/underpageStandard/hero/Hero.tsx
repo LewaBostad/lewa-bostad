@@ -3,15 +3,12 @@ import styles from "./Hero.module.css";
 import Image from "next/image";
 import PrimaryButton from "@/components/ui/buttons/PrimaryButton";
 import HeaderScrollWatcher from "./HeaderScrollWatcher";
-import RealtorCard from "@/components/ui/realtorCard/RealtorCard";
 
 interface HeroProps {
     project: StandardProject;
 }
 
 export default function Hero({ project }: HeroProps) {
-    const hasRealtorCard = Boolean(project.realtorCard?.showRealtorCard && project.realtorCard.fullName);
-
     return (
         <section className={styles.sectionWrapper} id="hero">
             <HeaderScrollWatcher />
@@ -30,11 +27,6 @@ export default function Hero({ project }: HeroProps) {
                             label="Visa alla bilder"
                             background="ghost"
                         />
-                    </div>
-                )}
-                {hasRealtorCard && (
-                    <div className={styles.realtorCardFloating}>
-                        <RealtorCard realtorCard={project.realtorCard} />
                     </div>
                 )}
             </div>

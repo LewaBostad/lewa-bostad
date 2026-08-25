@@ -4,6 +4,8 @@ import { Background } from "@/types/Props.types";
 import RealtorLinkButton from "@/components/ui/buttons/RealtorLinkButton";
 import RealtorCard from "@/components/ui/realtorCard/RealtorCard";
 
+const MAX_REALTOR_CARDS = 2;
+
 const PROCESS_STEPS = [
     "Projektet inleds",
     "Pågående produktion",
@@ -18,11 +20,13 @@ interface IntroProps {
     id?: string;
     eyebrow?: string;
     hideEyebrow?: boolean;
-    realtorCard?: RealtorCardData | null;
+    realtorCards?: RealtorCardData[] | null;
 }
 
-export default function Intro({ intro, background = "default", id, eyebrow, hideEyebrow, realtorCard }: IntroProps) {
-    const hasRealtorCard = Boolean(realtorCard?.showRealtorCard && realtorCard.fullName);
+export default function Intro({ intro, background = "default", id, eyebrow, hideEyebrow, realtorCards }: IntroProps) {
+    const validRealtorCards = (realtorCards ?? [])
+        .filter((realtor) => realtor?.fullName)
+        .slice(0, MAX_REALTOR_CARDS);
 
     return (
         <section id={id} className={`section section--${background}`}>
@@ -55,9 +59,17 @@ export default function Intro({ intro, background = "default", id, eyebrow, hide
                     ))}
                 </div>
 
-                {hasRealtorCard ? (
-                    <div className={styles.cardRow}>
-                        <RealtorCard realtorCard={realtorCard} />
+                {validRealtorCards.length > 0 ? (
+                    <div
+                        className={`${styles.cardRow} ${validRealtorCards.length > 1 ? styles["cardRow--multiple"] : ""}`}
+                    >
+                        {validRealtorCards.map((realtor, index) => (
+                            <RealtorCard
+                                key={realtor.fullName ?? index}
+                                realtorCard={realtor}
+                                equalWidth={validRealtorCards.length > 1}
+                            />
+                        ))}
                     </div>
                 ) : (
                     <div className={styles.buttonRow}>

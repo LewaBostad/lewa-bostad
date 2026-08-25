@@ -17,14 +17,14 @@ interface UnderpageFeaturedProps {
     allProjects: Project[];
 }
 
-function renderSection(section: FeaturedSection, index: number, currentSlug: string, allProjects: Project[], realtorCard?: FeaturedProject["realtorCard"]) {
+function renderSection(section: FeaturedSection, index: number, currentSlug: string, allProjects: Project[], realtorCards?: FeaturedProject["realtorCards"]) {
     const bg: Background = index % 2 === 0 ? "default" : "alt";
     const id = `section-${index}`;
     const { eyebrow, hideEyebrow } = section;
 
     switch (section._type) {
         case "introSection":
-            return <Intro key={index} intro={section} id={id} eyebrow={eyebrow} hideEyebrow={hideEyebrow} realtorCard={realtorCard} />;
+            return <Intro key={index} intro={section} id={id} eyebrow={eyebrow} hideEyebrow={hideEyebrow} realtorCards={realtorCards} />;
         case "sectionText":
             return <SectionText key={index} data={section} background={bg} id={id} eyebrow={eyebrow} hideEyebrow={hideEyebrow} />;
         case "sectionSplit":
@@ -53,7 +53,7 @@ export default function UnderpageFeatured({ project, allProjects }: UnderpageFea
             <FloatingCTA />
             <Hero project={project} />
             <SectionNav title={project.title} location={project.location} items={navItems} />
-            {project.sections.map((section, i) => renderSection(section, i, project.slug, allProjects, project.realtorCard))}
+            {project.sections.map((section, i) => renderSection(section, i, project.slug, allProjects, project.realtorCards))}
             <Interest type="specific" project={project} background={interestBackground} />
         </div>
     );

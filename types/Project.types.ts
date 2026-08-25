@@ -109,7 +109,6 @@ export interface ProjectObjectInfo {
 }
 
 export interface RealtorCard {
-    showRealtorCard?: boolean;
     photo?: ProjectImage | null;
     fullName?: string;
     company?: string;
@@ -131,7 +130,7 @@ interface BaseProject {
     objectInfo: ProjectObjectInfo[];
     hideObjectInfo?: boolean;
     objectInfoPlaceholder?: string;
-    realtorCard?: RealtorCard | null;
+    realtorCards?: RealtorCard[] | null;
     images: {
         thumbnail: ProjectImage;
         gallery: ProjectImage[];

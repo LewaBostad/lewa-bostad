@@ -87,10 +87,15 @@ export const projectType = defineType({
                 }),
         }),
         defineField({
-            name: "realtorCard",
+            name: "realtorCards",
             title: "Mäklarkort",
-            type: "realtorCard",
+            description:
+                "Visar ett kort med mäklarens bild och kontaktuppgifter på projektsidan. Lägg till en eller två mäklare. Lämna tomt för att inte visa något kort.",
+            type: "array",
             group: "general",
+            hidden: ({ document }) => document?.underpageType !== "featured",
+            of: [defineArrayMember({ type: "realtorCard" })],
+            validation: (Rule) => Rule.max(2),
         }),
         defineField({
             name: "objectInfo",
