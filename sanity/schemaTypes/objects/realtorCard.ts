@@ -10,6 +10,7 @@ export const realtorCardType = defineType({
             title: "Foto",
             type: "image",
             options: { hotspot: true },
+            validation: (Rule) => Rule.required(),
             fields: [
                 defineField({
                     name: "alt",
@@ -23,6 +24,7 @@ export const realtorCardType = defineType({
             name: "fullName",
             title: "Namn",
             type: "string",
+            validation: (Rule) => Rule.required(),
         }),
         defineField({
             name: "company",

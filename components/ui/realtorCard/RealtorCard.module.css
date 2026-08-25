@@ -33,6 +33,10 @@
         width: 170px;
         aspect-ratio: 1 / 1;
     }
+
+    .card:not(.split) .imageWrapper {
+        width: 260px;
+    }
 }
 
 .info {
