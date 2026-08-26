@@ -270,7 +270,13 @@ export const projectData: Project[] = [
                     a volutpat quis, auctor nec tortor. Suspendisse efficitur, lorem eu porta placerat, turpis ipsum suscipit turpis, eu suscipit
                     elit sapien placerat est. Curabitur auctor nulla maximus hendrerit egestas. Curabitur orci velit, vehicula ac tortor at,
                     bibendum bibendum metus.`,
-                statusStep: 0,
+                timelineSteps: [
+                    { active: true, topText: "", label: "Projektet inleds" },
+                    { active: false, topText: "", label: "Pågående produktion" },
+                    { active: false, topText: "", label: "Förhandsvisning" },
+                    { active: false, topText: "", label: "Uthyrning börjar" },
+                    { active: false, topText: "", label: "Inflyttning" },
+                ],
                 objectInfo: [
                     { title: "Område", value: "Krokhöjden, Nacka" },
                     { title: "Antal bostäder", value: "44 radhus" },

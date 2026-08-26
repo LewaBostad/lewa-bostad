@@ -97,7 +97,7 @@ const FEATURED_PROJECT_QUERY = `*[_type == "project" && slug.current == $slug][0
         hideEyebrow,
         title,
         text,
-        statusStep,
+        timelineSteps[] { active, topText, label },
         objectInfo[] { title, value },
         "image": image ${imageProjection},
         imageOrientation,

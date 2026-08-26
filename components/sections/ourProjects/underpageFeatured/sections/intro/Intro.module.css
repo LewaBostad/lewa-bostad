@@ -54,12 +54,17 @@
 }
 
 .timeline {
+    --step-top-height: 0px;
     position: relative;
     display: flex;
     justify-content: space-between;
     padding-block: var(--spacing-md);
     gap: var(--spacing-sm);
     min-width: max-content;
+}
+
+.timeline--withTopText {
+    --step-top-height: calc(var(--font-size-small) * var(--line-height-small) + var(--spacing-sm));
 }
 
 .step {
@@ -77,7 +82,7 @@
 .step::after {
     content: "";
     position: absolute;
-    top: 12px;
+    top: calc(var(--step-top-height) + 12px);
     height: 1px;
     background-color: var(--color-text-primary);
 }
@@ -126,6 +131,16 @@
     color: var(--color-text-primary);
     text-align: center;
     line-height: var(--line-height-small);
+}
+
+.stepTop {
+    font-family: var(--font-body);
+    font-size: var(--font-size-small);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-secondary);
+    text-align: center;
+    line-height: var(--line-height-small);
+    min-height: calc(var(--font-size-small) * var(--line-height-small));
 }
 
 /* ── Object info ── */

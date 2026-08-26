@@ -20,11 +20,17 @@ export interface SubSection {
     bulletPoints?: string[];
 }
 
+export interface TimelineStep {
+    active?: boolean;
+    topText?: string;
+    label: string;
+}
+
 export interface IntroSection {
     _type: "introSection";
     title: string;
     text: string;
-    statusStep: number;
+    timelineSteps: TimelineStep[];
     objectInfo: ProjectObjectInfo[];
     eyebrow: string;
     hideEyebrow?: boolean;

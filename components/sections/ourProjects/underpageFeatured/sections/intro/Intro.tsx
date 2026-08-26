@@ -6,14 +6,6 @@ import RealtorCard from "@/components/ui/realtorCard/RealtorCard";
 
 const MAX_REALTOR_CARDS = 2;
 
-const PROCESS_STEPS = [
-    "Projektet inleds",
-    "Pågående produktion",
-    "Förhandsvisning",
-    "Uthyrning börjar",
-    "Inflyttning",
-];
-
 interface IntroProps {
     intro: IntroSection;
     background?: Background;
@@ -28,6 +20,9 @@ export default function Intro({ intro, background = "default", id, eyebrow, hide
         .filter((realtor) => realtor?.fullName)
         .slice(0, MAX_REALTOR_CARDS);
 
+    const timelineSteps = intro.timelineSteps ?? [];
+    const hasTopText = timelineSteps.some((step) => step.topText);
+
     return (
         <section id={id} className={`section section--${background}`}>
             <div className={`container ${styles.inner}`}>
@@ -38,13 +33,12 @@ export default function Intro({ intro, background = "default", id, eyebrow, hide
                 </div>
 
                 <div className={styles.timelineScroll}>
-                    <div className={styles.timeline}>
-                        {PROCESS_STEPS.map((label, i) => (
-                            <div key={label} className={styles.step}>
-                                <div className={styles.circle}>
-                                    {i === intro.statusStep && <span className={styles.dot} />}
-                                </div>
-                                <span className={styles.stepLabel}>{label}</span>
+                    <div className={`${styles.timeline} ${hasTopText ? styles["timeline--withTopText"] : ""}`}>
+                        {timelineSteps.map((step, i) => (
+                            <div key={`${step.label}-${i}`} className={styles.step}>
+                                {hasTopText && <span className={styles.stepTop}>{step.topText}</span>}
+                                <div className={styles.circle}>{step.active && <span className={styles.dot} />}</div>
+                                <span className={styles.stepLabel}>{step.label}</span>
                             </div>
                         ))}
                     </div>

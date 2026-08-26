@@ -41,21 +41,62 @@ export const introSectionType = defineType({
             validation: (Rule) => Rule.required(),
         }),
         defineField({
-            name: "statusStep",
-            title: "Aktuellt projektsteg",
-            type: "number",
-            description: "Välj vilket steg projektet befinner sig på i tidslinjen",
-            options: {
-                list: [
-                    { title: "Projektet inleds", value: 0 },
-                    { title: "Pågående produktion", value: 1 },
-                    { title: "Förhandsvisning", value: 2 },
-                    { title: "Uthyrning börjar", value: 3 },
-                    { title: "Inflyttning", value: 4 },
-                ],
-                layout: "radio",
-            },
-            validation: (Rule) => Rule.required(),
+            name: "timelineSteps",
+            title: "Tidslinje / projektsteg",
+            type: "array",
+            description:
+                "Stegen som visas i projektets statustidslinje. Markera vilket steg som är aktuellt just nu.",
+            of: [
+                defineArrayMember({
+                    type: "object",
+                    name: "timelineStep",
+                    fields: [
+                        defineField({
+                            name: "active",
+                            title: "Aktuellt steg",
+                            description: "Markera detta som projektets nuvarande steg i tidslinjen",
+                            type: "boolean",
+                            initialValue: false,
+                        }),
+                        defineField({
+                            name: "topText",
+                            title: "Text ovanför punkten",
+                            description: 'Valfri. T.ex. "Hösten 2027". Lämna tomt om ingen text ska visas.',
+                            type: "string",
+                        }),
+                        defineField({
+                            name: "label",
+                            title: "Text under punkten",
+                            type: "string",
+                            validation: (Rule) => Rule.required(),
+                        }),
+                    ],
+                    preview: {
+                        select: { title: "label", subtitle: "topText", active: "active" },
+                        prepare: ({ title, subtitle, active }) => ({
+                            title: `${active ? "● " : ""}${title || "Utan text"}`,
+                            subtitle,
+                        }),
+                    },
+                }),
+            ],
+            initialValue: [
+                { active: false, topText: "", label: "Projektet inleds" },
+                { active: false, topText: "", label: "Pågående produktion" },
+                { active: false, topText: "", label: "Förhandsvisning" },
+                { active: false, topText: "", label: "Uthyrning börjar" },
+                { active: false, topText: "", label: "Inflyttning" },
+            ],
+            validation: (Rule) =>
+                Rule.required()
+                    .min(1)
+                    .custom((steps) => {
+                        if (!steps || steps.length === 0) return true;
+                        const activeCount = (steps as { active?: boolean }[]).filter((step) => step.active).length;
+                        if (activeCount === 0) return "Markera vilket steg som är aktuellt";
+                        if (activeCount > 1) return "Endast ett steg kan vara markerat som aktuellt";
+                        return true;
+                    }),
         }),
         defineField({
             name: "objectInfo",
