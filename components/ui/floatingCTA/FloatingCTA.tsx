@@ -5,9 +5,10 @@ import styles from "./FloatingCTA.module.css";
 
 interface FloatingCTAProps {
     mode?: "scroll" | "instant";
+    avoidMobileNav?: boolean;
 }
 
-export default function FloatingCTA({ mode = "scroll" }: FloatingCTAProps) {
+export default function FloatingCTA({ mode = "scroll", avoidMobileNav = false }: FloatingCTAProps) {
     const [visible, setVisible] = useState(mode === "instant");
 
     useEffect(() => {
@@ -50,7 +51,7 @@ export default function FloatingCTA({ mode = "scroll" }: FloatingCTAProps) {
         <a
             href="#kontakt"
             onClick={handleClick}
-            className={`${styles.cta} ${visible ? styles.visible : ""}`}
+            className={`${styles.cta} ${visible ? styles.visible : ""} ${avoidMobileNav ? styles.avoidMobileNav : ""}`}
             aria-hidden={!visible}
             tabIndex={visible ? 0 : -1}
         >

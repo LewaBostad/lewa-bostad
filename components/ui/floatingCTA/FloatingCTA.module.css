@@ -45,3 +45,11 @@
         right: var(--content-padding-x);
     }
 }
+
+/* On mobile, some pages have their own fixed bottom nav bar (same z-index,
+   later in the DOM) that would otherwise cover this button. */
+@media (max-width: 767px) {
+    .cta.avoidMobileNav {
+        bottom: calc(var(--section-bar-height) + var(--content-padding-x-mobile));
+    }
+}

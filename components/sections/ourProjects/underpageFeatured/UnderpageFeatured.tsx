@@ -50,7 +50,7 @@ export default function UnderpageFeatured({ project, allProjects }: UnderpageFea
 
     return (
         <div>
-            <FloatingCTA />
+            <FloatingCTA avoidMobileNav />
             <Hero project={project} />
             <SectionNav title={project.title} location={project.location} items={navItems} />
             {project.sections.map((section, i) => renderSection(section, i, project.slug, allProjects, project.realtorCards))}
