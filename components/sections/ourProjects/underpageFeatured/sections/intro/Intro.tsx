@@ -1,10 +1,11 @@
 import styles from "./Intro.module.css";
-import { IntroSection, RealtorCard as RealtorCardData } from "@/types/Project.types";
+import { IntroSection, RealtorCard as RealtorCardData, SectionButtonData } from "@/types/Project.types";
 import { Background } from "@/types/Props.types";
 import SectionButton from "@/components/ui/buttons/SectionButton";
 import RealtorCard from "@/components/ui/realtorCard/RealtorCard";
 
 const MAX_REALTOR_CARDS = 2;
+const MAX_REALTOR_CARD_BUTTONS = 2;
 
 interface IntroProps {
     intro: IntroSection;
@@ -13,12 +14,20 @@ interface IntroProps {
     eyebrow?: string;
     hideEyebrow?: boolean;
     realtorCards?: RealtorCardData[] | null;
+    realtorCardButtons?: SectionButtonData[] | null;
 }
 
-export default function Intro({ intro, background = "default", id, eyebrow, hideEyebrow, realtorCards }: IntroProps) {
+export default function Intro({ intro, background = "default", id, eyebrow, hideEyebrow, realtorCards, realtorCardButtons }: IntroProps) {
     const validRealtorCards = (realtorCards ?? [])
         .filter((realtor) => realtor?.fullName)
         .slice(0, MAX_REALTOR_CARDS);
+
+    // Buttons under the realtor cards (PDFs), followed by the section's own button.
+    // Realtor cards replace the section's realtor-link button; a section PDF button is shown regardless.
+    const buttons = (realtorCardButtons ?? []).filter((button) => button?.href).slice(0, MAX_REALTOR_CARD_BUTTONS);
+    if (intro.button?.href && (intro.button.type === "pdf" || validRealtorCards.length === 0)) {
+        buttons.push(intro.button);
+    }
 
     const timelineSteps = intro.timelineSteps ?? [];
     const hasTopText = timelineSteps.some((step) => step.topText);
@@ -66,10 +75,11 @@ export default function Intro({ intro, background = "default", id, eyebrow, hide
                         ))}
                     </div>
                 )}
-                {/* Realtor cards replace the realtor-link button; a PDF button is shown regardless. */}
-                {intro.button && (intro.button.type === "pdf" || validRealtorCards.length === 0) && (
+                {buttons.length > 0 && (
                     <div className={styles.buttonRow}>
-                        <SectionButton button={intro.button} />
+                        {buttons.map((button, index) => (
+                            <SectionButton key={`${button.href}-${index}`} button={button} />
+                        ))}
                     </div>
                 )}
             </div>

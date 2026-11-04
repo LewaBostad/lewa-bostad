@@ -150,6 +150,8 @@ export interface StandardProject extends BaseProject {
 
 export interface FeaturedProject extends BaseProject {
     underpageType: "featured";
+    /** Up to two PDF buttons shown under the realtor cards in the intro section. */
+    realtorCardButtons?: SectionButtonData[] | null;
     sections: FeaturedSection[];
 }
 

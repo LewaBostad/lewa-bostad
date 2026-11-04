@@ -44,9 +44,18 @@
     }
 }
 
+/* Side by side on all screens; wraps onto a new line if the labels don't fit. */
 .buttonRow {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
+    gap: var(--space-4);
+}
+
+@media (min-width: 768px) {
+    .buttonRow {
+        gap: var(--space-6);
+    }
 }
 
 .timelineScroll {

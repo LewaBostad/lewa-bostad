@@ -98,6 +98,17 @@ export const projectType = defineType({
             validation: (Rule) => Rule.max(2),
         }),
         defineField({
+            name: "realtorCardButtons",
+            title: "Knappar under mäklarkort",
+            description:
+                "Visar en eller två knappar under mäklarkorten i inledningssektionen. Varje knapp öppnar en PDF i en ny flik. Lämna tomt för att inte visa några knappar.",
+            type: "array",
+            group: "general",
+            hidden: ({ document }) => document?.underpageType !== "featured",
+            of: [defineArrayMember({ type: "pdfButton" })],
+            validation: (Rule) => Rule.max(2).error("Högst två knappar"),
+        }),
+        defineField({
             name: "objectInfo",
             title: "Objektfakta",
             type: "array",

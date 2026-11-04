@@ -7,6 +7,7 @@ import type {
     FeaturedProject,
     FeaturedSection,
     ProjectObjectInfo,
+    SectionButtonData,
 } from "@/types/Project.types";
 import type { NewsArticlePreview, NewsArticle } from "@/types/News.types";
 
@@ -18,16 +19,20 @@ const thumbProjection = imageProjection;
 // ── Realtor cards (optional, up to two, shown on the featured underpage) ──────
 const realtorCardsProjection = `realtorCards[] { fullName, company, phone, email, "photo": photo ${imageProjection} }`;
 
+// ── PDF buttons ───────────────────────────────────────────────────────────────
+// PDFs are linked via our own domain (/dokument/<assetId>/<name>.pdf, proxied to the Sanity CDN in
+// next.config.ts). The readable name is appended in TS by withPdfFilename() – GROQ can't URL-encode.
+const pdfButtonProjection = (fileField: string, labelField: string) => `{
+    "type": "pdf",
+    "href": "/dokument/" + ${fileField}.asset->assetId + "/",
+    "filename": ${fileField}.asset->originalFilename,
+    "label": ${labelField}
+}`;
+
 // ── Section button (featured sections: realtor link OR PDF, never both) ──────
 // Sections saved before `buttonType` existed only have `realtorLink`, so a missing type counts as "realtor".
-// PDFs are linked via our own domain (/dokument/…, proxied to the Sanity CDN in next.config.ts).
 const sectionButtonProjection = `"button": select(
-    buttonType == "pdf" && defined(pdfFile.asset) => {
-        "type": "pdf",
-        "href": "/dokument/" + pdfFile.asset->assetId + "/",
-        "filename": pdfFile.asset->originalFilename,
-        "label": pdfLabel
-    },
+    buttonType == "pdf" && defined(pdfFile.asset) => ${pdfButtonProjection("pdfFile", "pdfLabel")},
     coalesce(buttonType, "realtor") == "realtor" && defined(realtorLink) => { "type": "realtor", "href": realtorLink, "label": realtorLinkLabel }
 )`;
 
@@ -100,6 +105,7 @@ const FEATURED_PROJECT_QUERY = `*[_type == "project" && slug.current == $slug][0
     "status": { "value": status, "label": ${statusLabel} },
     objectInfo[] { title, value },
     ${realtorCardsProjection},
+    "realtorCardButtons": realtorCardButtons[defined(pdfFile.asset)] ${pdfButtonProjection("pdfFile", "label")},
     "images": {
         "thumbnail": thumbnail ${thumbProjection},
         "gallery": gallery[] ${imageProjection}
@@ -297,10 +303,21 @@ function toPdfFilename(originalFilename?: string | null): string {
     return `${base || "dokument"}.pdf`;
 }
 
-function withReadablePdfHref(section: FeaturedSection): FeaturedSection {
-    if (!("button" in section) || section.button?.type !== "pdf") return section;
-    const { filename, ...button } = section.button as typeof section.button & { filename?: string | null };
-    return { ...section, button: { ...button, href: button.href + toPdfFilename(filename) } };
+type RawButton = SectionButtonData & { filename?: string | null };
+
+function withPdfFilename(raw: RawButton): SectionButtonData {
+    const { filename, ...button } = raw;
+    return button.type === "pdf" ? { ...button, href: button.href + toPdfFilename(filename) } : button;
+}
+
+function withReadablePdfHrefs(project: FeaturedProject): FeaturedProject {
+    return {
+        ...project,
+        realtorCardButtons: (project.realtorCardButtons ?? []).map(withPdfFilename),
+        sections: (project.sections ?? []).map((section): FeaturedSection =>
+            "button" in section && section.button ? { ...section, button: withPdfFilename(section.button) } : section,
+        ),
+    };
 }
 
 // ── Fetch functions ───────────────────────────────────────────────────────────
@@ -339,7 +356,7 @@ export async function getProject(slug: string): Promise<Project | null> {
 
     if (base.underpageType === "featured") {
         const project = await client.fetch<FeaturedProject | null>(FEATURED_PROJECT_QUERY, { slug });
-        return project && { ...project, sections: (project.sections ?? []).map(withReadablePdfHref) };
+        return project && withReadablePdfHrefs(project);
     }
     return client.fetch<StandardProject>(STANDARD_PROJECT_QUERY, { slug });
 }

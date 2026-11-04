@@ -3,6 +3,7 @@ export { keyFigureType } from "./objects/keyFigure";
 export { valueBlockType } from "./objects/valueBlock";
 export { contactOwnerType } from "./objects/contactOwner";
 export { realtorCardType } from "./objects/realtorCard";
+export { pdfButtonType } from "./objects/pdfButton";
 export { processStepType } from "./objects/processStep";
 export { objectInfoType } from "./objects/objectInfo";
 export { standardSectionType } from "./objects/standardSection";
