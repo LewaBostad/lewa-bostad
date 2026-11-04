@@ -1,7 +1,7 @@
 import styles from "./Intro.module.css";
 import { IntroSection, RealtorCard as RealtorCardData } from "@/types/Project.types";
 import { Background } from "@/types/Props.types";
-import RealtorLinkButton from "@/components/ui/buttons/RealtorLinkButton";
+import SectionButton from "@/components/ui/buttons/SectionButton";
 import RealtorCard from "@/components/ui/realtorCard/RealtorCard";
 
 const MAX_REALTOR_CARDS = 2;
@@ -53,7 +53,7 @@ export default function Intro({ intro, background = "default", id, eyebrow, hide
                     ))}
                 </div>
 
-                {validRealtorCards.length > 0 ? (
+                {validRealtorCards.length > 0 && (
                     <div
                         className={`${styles.cardRow} ${validRealtorCards.length > 1 ? styles["cardRow--multiple"] : ""}`}
                     >
@@ -65,9 +65,11 @@ export default function Intro({ intro, background = "default", id, eyebrow, hide
                             />
                         ))}
                     </div>
-                ) : (
+                )}
+                {/* Realtor cards replace the realtor-link button; a PDF button is shown regardless. */}
+                {intro.button && (intro.button.type === "pdf" || validRealtorCards.length === 0) && (
                     <div className={styles.buttonRow}>
-                        <RealtorLinkButton href={intro.realtorLink} label={intro.realtorLinkLabel} />
+                        <SectionButton button={intro.button} />
                     </div>
                 )}
             </div>

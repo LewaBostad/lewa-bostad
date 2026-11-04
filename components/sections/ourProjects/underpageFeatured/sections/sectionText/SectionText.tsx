@@ -1,7 +1,7 @@
 import styles from "./SectionText.module.css";
 import { SectionText as SectionTextType } from "@/types/Project.types";
 import { Background } from "@/types/Props.types";
-import RealtorLinkButton from "@/components/ui/buttons/RealtorLinkButton";
+import SectionButton from "@/components/ui/buttons/SectionButton";
 
 interface SectionTextProps {
     data: SectionTextType;
@@ -18,7 +18,7 @@ export default function SectionText({ data, background = "default", id, eyebrow,
                 {eyebrow && !hideEyebrow && <p className={styles.eyebrow}>{eyebrow}</p>}
                 <h2>{data.title}</h2>
                 <p className="prose">{data.text}</p>
-                <RealtorLinkButton href={data.realtorLink} label={data.realtorLinkLabel} />
+                <SectionButton button={data.button} />
             </div>
         </section>
     );

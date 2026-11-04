@@ -5,6 +5,7 @@ import type {
     Project,
     StandardProject,
     FeaturedProject,
+    FeaturedSection,
     ProjectObjectInfo,
 } from "@/types/Project.types";
 import type { NewsArticlePreview, NewsArticle } from "@/types/News.types";
@@ -16,6 +17,19 @@ const thumbProjection = imageProjection;
 
 // ── Realtor cards (optional, up to two, shown on the featured underpage) ──────
 const realtorCardsProjection = `realtorCards[] { fullName, company, phone, email, "photo": photo ${imageProjection} }`;
+
+// ── Section button (featured sections: realtor link OR PDF, never both) ──────
+// Sections saved before `buttonType` existed only have `realtorLink`, so a missing type counts as "realtor".
+// PDFs are linked via our own domain (/dokument/…, proxied to the Sanity CDN in next.config.ts).
+const sectionButtonProjection = `"button": select(
+    buttonType == "pdf" && defined(pdfFile.asset) => {
+        "type": "pdf",
+        "href": "/dokument/" + pdfFile.asset->assetId + "/",
+        "filename": pdfFile.asset->originalFilename,
+        "label": pdfLabel
+    },
+    coalesce(buttonType, "realtor") == "realtor" && defined(realtorLink) => { "type": "realtor", "href": realtorLink, "label": realtorLinkLabel }
+)`;
 
 // ── Status label map ──────────────────────────────────────────────────────────
 const statusLabel = `select(
@@ -105,8 +119,7 @@ const FEATURED_PROJECT_QUERY = `*[_type == "project" && slug.current == $slug][0
         "image2": image2 ${imageProjection},
         bulletPoints,
         subSections[] { title, text, bulletPoints },
-        realtorLink,
-        realtorLinkLabel
+        ${sectionButtonProjection}
     }
 }`;
 
@@ -270,6 +283,26 @@ export type PrivacyPolicyData = {
     sections: { title: string; content: PortableTextBlock[] }[];
 };
 
+// ── PDF links ─────────────────────────────────────────────────────────────────
+// Appends a URL-safe version of the uploaded file's name, e.g. "Planritning Tumba.pdf" → "planritning-tumba.pdf",
+// so the tab title and the "save as" name are readable instead of a hash.
+function toPdfFilename(originalFilename?: string | null): string {
+    const base = (originalFilename ?? "")
+        .replace(/\.pdf$/i, "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+    return `${base || "dokument"}.pdf`;
+}
+
+function withReadablePdfHref(section: FeaturedSection): FeaturedSection {
+    if (!("button" in section) || section.button?.type !== "pdf") return section;
+    const { filename, ...button } = section.button as typeof section.button & { filename?: string | null };
+    return { ...section, button: { ...button, href: button.href + toPdfFilename(filename) } };
+}
+
 // ── Fetch functions ───────────────────────────────────────────────────────────
 
 export async function getAllProjects(): Promise<Project[]> {
@@ -305,7 +338,8 @@ export async function getProject(slug: string): Promise<Project | null> {
     if (!base) return null;
 
     if (base.underpageType === "featured") {
-        return client.fetch<FeaturedProject>(FEATURED_PROJECT_QUERY, { slug });
+        const project = await client.fetch<FeaturedProject | null>(FEATURED_PROJECT_QUERY, { slug });
+        return project && { ...project, sections: (project.sections ?? []).map(withReadablePdfHref) };
     }
     return client.fetch<StandardProject>(STANDARD_PROJECT_QUERY, { slug });
 }

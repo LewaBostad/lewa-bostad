@@ -1,5 +1,5 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
-import { realtorLinkField, realtorLinkLabelField } from "../fields/realtorLink";
+import { sectionButtonFields, sectionButtonFieldset } from "../fields/sectionButton";
 
 const eyebrowField = defineField({
     name: "eyebrow",
@@ -24,6 +24,7 @@ export const introSectionType = defineType({
     title: "Inledning",
     type: "object",
     description: "Projektets inledningssektion med faktatåda och statusindikator",
+    fieldsets: [sectionButtonFieldset],
     fields: [
         eyebrowField,
         hideEyebrowField,
@@ -105,8 +106,7 @@ export const introSectionType = defineType({
             description: "Faktatåda med projektdetaljer, t.ex. Byggstart, Inflyttning, Antal bostäder",
             of: [defineArrayMember({ type: "objectInfo" })],
         }),
-        realtorLinkField,
-        realtorLinkLabelField,
+        ...sectionButtonFields,
     ],
     preview: {
         select: { title: "title" },
@@ -119,6 +119,7 @@ export const sectionTextType = defineType({
     title: "Textsektion",
     type: "object",
     description: "En sektion med enbart rubrik och brödtext – ingen bild",
+    fieldsets: [sectionButtonFieldset],
     fields: [
         eyebrowField,
         hideEyebrowField,
@@ -135,8 +136,7 @@ export const sectionTextType = defineType({
             rows: 5,
             validation: (Rule) => Rule.required(),
         }),
-        realtorLinkField,
-        realtorLinkLabelField,
+        ...sectionButtonFields,
     ],
     preview: {
         select: { title: "title" },
@@ -149,6 +149,7 @@ export const sectionSplitType = defineType({
     title: "Delad sektion (text + bild)",
     type: "object",
     description: "Rubrik och brödtext bredvid en bild",
+    fieldsets: [sectionButtonFieldset],
     fields: [
         eyebrowField,
         hideEyebrowField,
@@ -194,8 +195,7 @@ export const sectionSplitType = defineType({
             initialValue: "right",
             validation: (Rule) => Rule.required(),
         }),
-        realtorLinkField,
-        realtorLinkLabelField,
+        ...sectionButtonFields,
     ],
     preview: {
         select: { title: "title", media: "image" },
@@ -208,6 +208,7 @@ export const sectionSplitDoubleType = defineType({
     title: "Dubbel bildsektion",
     type: "object",
     description: "Rubrik och text med två bilder bredvid varandra",
+    fieldsets: [sectionButtonFieldset],
     fields: [
         eyebrowField,
         hideEyebrowField,
@@ -251,8 +252,7 @@ export const sectionSplitDoubleType = defineType({
                 }),
             ],
         }),
-        realtorLinkField,
-        realtorLinkLabelField,
+        ...sectionButtonFields,
     ],
     preview: {
         select: { title: "title", media: "image1" },
@@ -265,6 +265,7 @@ export const sectionBulletsType = defineType({
     title: "Punktlistesektion",
     type: "object",
     description: "Rubrik, valfri intro-text och en punktlista",
+    fieldsets: [sectionButtonFieldset],
     fields: [
         eyebrowField,
         hideEyebrowField,
@@ -288,8 +289,7 @@ export const sectionBulletsType = defineType({
             of: [defineArrayMember({ type: "string" })],
             validation: (Rule) => Rule.required().min(1),
         }),
-        realtorLinkField,
-        realtorLinkLabelField,
+        ...sectionButtonFields,
     ],
     preview: {
         select: { title: "title" },
@@ -332,6 +332,7 @@ export const sectionSubsectionsType = defineType({
     title: "Undersektioner",
     type: "object",
     description: "En huvudrubrik med flera undersektioner (t.ex. Material och detaljer → Kök, Badrum…)",
+    fieldsets: [sectionButtonFieldset],
     fields: [
         eyebrowField,
         hideEyebrowField,
@@ -348,8 +349,7 @@ export const sectionSubsectionsType = defineType({
             of: [defineArrayMember({ type: "subSection" })],
             validation: (Rule) => Rule.required().min(1),
         }),
-        realtorLinkField,
-        realtorLinkLabelField,
+        ...sectionButtonFields,
     ],
     preview: {
         select: { title: "title" },

@@ -2,7 +2,7 @@ import Image from "next/image";
 import styles from "./SectionSplit.module.css";
 import { SectionSplit as SectionSplitType } from "@/types/Project.types";
 import { Background } from "@/types/Props.types";
-import RealtorLinkButton from "@/components/ui/buttons/RealtorLinkButton";
+import SectionButton from "@/components/ui/buttons/SectionButton";
 
 interface SectionSplitProps {
     data: SectionSplitType;
@@ -20,7 +20,7 @@ export default function SectionSplit({ data, background = "default", id, eyebrow
                     {eyebrow && !hideEyebrow && <p className={styles.eyebrow}>{eyebrow}</p>}
                     <h2>{data.title}</h2>
                     <p className="prose">{data.text}</p>
-                    <RealtorLinkButton href={data.realtorLink} label={data.realtorLinkLabel} />
+                    <SectionButton button={data.button} />
                 </div>
                 {data.image?.src && (
                     <Image
