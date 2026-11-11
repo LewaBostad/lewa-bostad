@@ -20,7 +20,6 @@ export default function SectionSplit({ data, background = "default", id, eyebrow
                     {eyebrow && !hideEyebrow && <p className={styles.eyebrow}>{eyebrow}</p>}
                     <h2>{data.title}</h2>
                     <p className="prose">{data.text}</p>
-                    <SectionButton button={data.button} />
                 </div>
                 {data.image?.src && (
                     <Image
@@ -30,6 +29,11 @@ export default function SectionSplit({ data, background = "default", id, eyebrow
                         height={data.image.height ?? 900}
                         style={{ width: "100%", height: "auto", display: "block" }}
                     />
+                )}
+                {data.button?.href && (
+                    <div className={styles.buttonRow}>
+                        <SectionButton button={data.button} />
+                    </div>
                 )}
             </div>
         </section>

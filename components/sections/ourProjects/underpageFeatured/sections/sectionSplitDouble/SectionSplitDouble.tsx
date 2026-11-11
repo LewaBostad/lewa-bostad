@@ -20,7 +20,6 @@ export default function SectionSplitDouble({ data, background = "default", id, e
                     {eyebrow && !hideEyebrow && <p className={styles.eyebrow}>{eyebrow}</p>}
                     <h2>{data.title}</h2>
                     <p className="prose">{data.text}</p>
-                    <SectionButton button={data.button} />
                 </div>
                 {(data.image1?.src || data.image2?.src) && (
                     <div className={styles.images}>
@@ -34,6 +33,11 @@ export default function SectionSplitDouble({ data, background = "default", id, e
                                 <Image src={data.image2.src} alt={data.image2.alt} fill sizes="(max-width: 768px) 100vw, 50vw" style={{ objectFit: "cover" }} />
                             </div>
                         )}
+                    </div>
+                )}
+                {data.button?.href && (
+                    <div className={styles.buttonRow}>
+                        <SectionButton button={data.button} />
                     </div>
                 )}
             </div>
